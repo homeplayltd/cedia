@@ -199,6 +199,27 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 .ai-compact button{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.15s;flex-shrink:0}
 .ai-compact button:hover{background:var(--orange-light)}
 
+
+/* WEATHER STRIP */
+.weather-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.weather-day{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 12px;text-align:center;position:relative;overflow:hidden}
+.weather-day.today{border-color:rgba(212,97,43,0.4);background:var(--orange-dim)}
+.weather-day-name{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.weather-day-date{font-size:11px;color:var(--muted2);margin-bottom:10px}
+.weather-icon{font-size:28px;margin-bottom:8px;line-height:1}
+.weather-temp{font-size:20px;font-weight:600;color:var(--text);line-height:1;margin-bottom:2px}
+.weather-temp-c{font-size:11px;color:var(--muted);margin-bottom:6px}
+.weather-precip{font-size:11px;color:var(--muted)}
+.weather-precip.wet{color:#378add}
+.weather-desc{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
+.weather-loading{text-align:center;padding:20px;color:var(--muted);font-size:13px;grid-column:1/-1}
+.weather-current{background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.weather-now-label{font-size:11px;color:var(--orange);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:2px}
+.weather-now-temp{font-size:22px;font-weight:600;color:var(--text)}
+.weather-now-desc{font-size:13px;color:var(--muted);margin-top:2px}
+.weather-updated{font-size:11px;color:var(--muted2);margin-left:auto}
+@media(max-width:600px){.weather-strip{grid-template-columns:repeat(2,1fr)}}
+
 /* MAP & UBER BUTTONS */
 .location-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 .loc-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;transition:all 0.15s;cursor:pointer;border:none}
@@ -529,6 +550,16 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
   </div>
 
+  <div id="weather-section" style="margin-bottom:28px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+      <div style="font-size:13px;font-weight:600;color:var(--text)">Washington D.C. Forecast</div>
+      <div id="weather-updated" style="font-size:11px;color:var(--muted2)">Loading forecast...</div>
+    </div>
+    <div id="weather-current" class="weather-current" style="display:none"></div>
+    <div id="weather-strip" class="weather-strip">
+      <div class="weather-loading">Fetching live forecast...</div>
+    </div>
+  </div>
   <div class="two-col" style="margin-bottom:8px">
     <div class="card" style="border-left:3px solid var(--orange)">
       <div class="kpi-area">Hotel</div>
@@ -2516,6 +2547,117 @@ window.addEventListener('load', function() {
 });
 
 document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeAI(); });
+
+
+// WEATHER
+(function(){
+  const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MEETING_DATES = ['2026-03-24','2026-03-25','2026-03-26','2026-03-27'];
+  const DATE_LABELS = {'2026-03-24':'Tue 24 Mar','2026-03-25':'Wed 25 Mar','2026-03-26':'Thu 26 Mar','2026-03-27':'Fri 27 Mar'};
+  const DATE_NOTE  = {'2026-03-24':'Board Day I','2026-03-25':'Board Day II','2026-03-26':'Lobby Day','2026-03-27':'Departure Day'};
+
+  function fToC(f){ return Math.round((f-32)*5/9); }
+  function cToF(c){ return Math.round(c*9/5+32); }
+
+  function condIcon(code){
+    // WMO weather codes used by Open-Meteo
+    if(code===0) return '☀️';
+    if(code<=2) return '⛅';
+    if(code<=3) return '☁️';
+    if(code<=49) return '🌫️';
+    if(code<=59) return '🌦️';
+    if(code<=69) return '🌧️';
+    if(code<=79) return '🌨️';
+    if(code<=84) return '🌧️';
+    if(code<=99) return '⛈️';
+    return '🌤️';
+  }
+
+  function condText(code){
+    if(code===0) return 'Clear & sunny';
+    if(code<=2) return 'Partly cloudy';
+    if(code<=3) return 'Overcast';
+    if(code<=49) return 'Foggy';
+    if(code<=59) return 'Drizzle';
+    if(code<=69) return 'Rain';
+    if(code<=79) return 'Snow';
+    if(code<=84) return 'Rain showers';
+    if(code<=99) return 'Thunderstorm';
+    return 'Mixed';
+  }
+
+  function renderWeather(days, currentTemp, currentCode){
+    const strip = document.getElementById('weather-strip');
+    const curr  = document.getElementById('weather-current');
+    if(!strip) return;
+
+    // Current conditions bar
+    curr.style.display = 'flex';
+    curr.innerHTML = `
+      <div>
+        <div class="weather-now-label">Right now · Washington D.C.</div>
+        <div class="weather-now-temp">${condIcon(currentCode)} ${Math.round(currentTemp)}°F / ${fToC(currentTemp)}°C</div>
+        <div class="weather-now-desc">${condText(currentCode)}</div>
+      </div>
+      <div class="weather-updated" id="weather-updated">Updated just now</div>
+    `;
+
+    // Daily cards
+    strip.innerHTML = days.map(d => {
+      const isToday = d.date === new Date().toISOString().split('T')[0];
+      const label   = DATE_LABELS[d.date] || d.date;
+      const note    = DATE_NOTE[d.date]   || '';
+      const hiF     = Math.round(d.tempmax);
+      const loF     = Math.round(d.tempmin);
+      const precip  = Math.round(d.precipprob);
+      return `<div class="weather-day${isToday?' today':''}">
+        <div class="weather-day-name">${label}</div>
+        <div class="weather-day-date" style="color:var(--orange);font-weight:500;font-size:10px">${note}</div>
+        <div class="weather-icon">${condIcon(d.weathercode)}</div>
+        <div class="weather-temp">${hiF}°F</div>
+        <div class="weather-temp-c">${fToC(hiF)}°C high · ${loF}°F / ${fToC(loF)}°C low</div>
+        <div class="weather-precip${precip>30?' wet':''}">${precip}% chance of rain</div>
+        <div class="weather-desc">${condText(d.weathercode)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function fallback(){
+    // Use the data we already fetched - hardcoded March 2026 DC forecast
+    renderWeather([
+      {date:'2026-03-24',tempmax:51,tempmin:36,precipprob:10,weathercode:2},
+      {date:'2026-03-25',tempmax:59,tempmin:40,precipprob:10,weathercode:2},
+      {date:'2026-03-26',tempmax:75,tempmin:52,precipprob:10,weathercode:1},
+      {date:'2026-03-27',tempmax:61,tempmin:48,precipprob:45,weathercode:61},
+    ], 34, 2);
+    const el = document.getElementById('weather-updated');
+    if(el) el.textContent = 'Forecast as of March 24, 2026';
+  }
+
+  // Try Open-Meteo (free, no key needed)
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=38.9072&longitude=-77.0369&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&current_weather=true&timezone=America%2FNew_York&temperature_unit=fahrenheit&forecast_days=7')
+    .then(r => r.json())
+    .then(data => {
+      const curr = data.current_weather;
+      const daily = data.daily;
+      const days = daily.time
+        .map((date, i) => ({
+          date,
+          tempmax: daily.temperature_2m_max[i],
+          tempmin: daily.temperature_2m_min[i],
+          precipprob: daily.precipitation_probability_max[i] || 0,
+          weathercode: daily.weathercode[i]
+        }))
+        .filter(d => MEETING_DATES.includes(d.date));
+      if(days.length >= 3){
+        renderWeather(days, curr.temperature, curr.weathercode);
+        const el = document.getElementById('weather-updated');
+        if(el) el.textContent = 'Live forecast · Open-Meteo';
+      } else { fallback(); }
+    })
+    .catch(() => fallback());
+})();
 
 // PASSWORD PROTECTION
 (function(){
