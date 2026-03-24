@@ -188,6 +188,26 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 .ct-amber{background:rgba(212,97,43,0.12);color:var(--orange);border:1px solid rgba(212,97,43,0.25)}
 .ct-blue{background:rgba(55,138,221,0.12);color:#378add;border:1px solid rgba(55,138,221,0.2)}
 
+
+
+/* COMPACT AI SEARCH BAR */
+.ai-compact{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;margin-bottom:28px;transition:border-color 0.2s}
+.ai-compact:focus-within{border-color:var(--orange)}
+.ai-compact svg{width:15px;height:15px;flex-shrink:0;color:var(--muted2)}
+.ai-compact input{flex:1;background:none;border:none;outline:none;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text)}
+.ai-compact input::placeholder{color:var(--muted2)}
+.ai-compact button{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.15s;flex-shrink:0}
+.ai-compact button:hover{background:var(--orange-light)}
+
+/* MAP & UBER BUTTONS */
+.location-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.loc-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;transition:all 0.15s;cursor:pointer;border:none}
+.loc-btn-maps{background:rgba(66,133,244,0.12);color:#4285f4;border:1px solid rgba(66,133,244,0.25)}
+.loc-btn-maps:hover{background:rgba(66,133,244,0.22)}
+.loc-btn-uber{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border2)}
+.loc-btn-uber:hover{background:rgba(255,255,255,0.1)}
+.loc-btn svg{width:12px;height:12px;flex-shrink:0}
+
 /* PASSWORD GATE */
 #pw-gate{position:fixed;inset:0;background:#0d0d0d;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px}
 #pw-box{width:100%;max-width:380px;text-align:center}
@@ -279,8 +299,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     <span class="meta-badge">Washington D.C. · March 23–26</span>
   </div>
   <div class="sidebar-nav">
-    <div class="nav-section">Overview</div>
-    <div class="nav-item active" onclick="show('overview')"><div class="nav-dot"></div>CEO Introduction</div>
+    <div class="nav-section">This Week</div>
+    <div class="nav-item active" onclick="show('logistics')"><div class="nav-dot"></div>Logistics &amp; Agenda</div>
+    <div class="nav-item" onclick="show('hillday')"><div class="nav-dot"></div>Lobby Day — March 26</div>
+    <div class="nav-item" onclick="show('minutes')"><div class="nav-dot"></div>Previous Minutes</div>
+    <div class="nav-section">Pre-Read</div>
+    <div class="nav-item" onclick="show('overview')"><div class="nav-dot"></div>CEO Introduction</div>
     <div class="nav-item" onclick="show('summary')"><div class="nav-dot"></div>Board Summary &amp; AI Q&amp;A</div>
     <div class="nav-item" onclick="show('kpi')"><div class="nav-dot"></div>2026 KPIs</div>
     <div class="nav-section">Operations</div>
@@ -311,7 +335,7 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 <main id="main">
 
 <!-- OVERVIEW -->
-<section id="overview" class="section active">
+<section id="overview" class="section">
 
   <!-- AI ASK BOX -->
   <div class="ai-top-box">
@@ -337,6 +361,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     <div class="section-title">CEO Introduction</div>
     <div class="section-desc">Washington D.C. &nbsp;·&nbsp; March 23–26, 2026</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <div class="card" style="margin-bottom:28px;padding:28px 32px">
     <p style="color:var(--muted);font-size:13px;margin-bottom:20px">Dear CEDIA Board of Directors,</p>
@@ -480,6 +510,522 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 </section>
 
 
+<!-- LOGISTICS -->
+<section id="logistics" class="section active">
+  <div class="section-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div style="flex:1">
+        <div class="section-label">Washington D.C. · March 23–26, 2026</div>
+        <div class="section-title">Logistics &amp; Agenda</div>
+        <div class="section-desc">Hotel, transport, meeting locations, meal times, and the full two-day agenda.</div>
+      </div>
+      <img src="data:image/png;base64,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" alt="CEDIA" style="width:52px;opacity:0.35;flex-shrink:0;margin-top:4px;filter:brightness(1.2)">
+    </div>
+  </div>
+
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
+  <div class="two-col" style="margin-bottom:8px">
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <div class="kpi-area">Hotel</div>
+      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px">Le Méridien Washington D.C.</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px">The Madison &nbsp;·&nbsp; 1177 15th Street NW, Washington D.C. 20005</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:2px">Tel: 202-862-1600</div>
+      <div class="location-actions">
+      <a href="https://maps.google.com/?q=Le+Meridien+Washington+DC,+1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+M%C3%A9ridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
+      <div class="stat-row" style="padding:6px 0"><span class="stat-label">Check-in</span><span class="stat-value">4:00 PM</span></div>
+      <div class="stat-row" style="padding:6px 0"><span class="stat-label">Check-out</span><span class="stat-value">12:00 PM</span></div>
+      <div class="stat-row" style="padding:8px 0;border-bottom:none;flex-wrap:wrap;gap:4px;align-items:center">
+        <span class="stat-label">Reagan National (DCA)</span>
+        <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span class="stat-value">4.5 miles</span>
+          <a href="https://maps.google.com/?q=Ronald+Reagan+Washington+National+Airport,+Arlington,+VA+22202" target="_blank" rel="noopener" class="loc-btn loc-btn-maps" style="padding:3px 8px;font-size:11px"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Maps</a>
+          <a href="https://m.uber.com/ul/?action=setPickup&pickup[latitude]=38.8521&pickup[longitude]=-77.0402&pickup[nickname]=Reagan+National+Airport+(DCA)&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+M%C3%A9ridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber" style="padding:3px 8px;font-size:11px"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg> Uber to hotel</a>
+        </span>
+      </div>
+      <div class="stat-row" style="padding:8px 0;border-bottom:none;flex-wrap:wrap;gap:4px;align-items:center">
+        <span class="stat-label">Dulles (IAD)</span>
+        <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+          <span class="stat-value">30 miles</span>
+          <a href="https://maps.google.com/?q=Washington+Dulles+International+Airport,+Dulles,+VA+20166" target="_blank" rel="noopener" class="loc-btn loc-btn-maps" style="padding:3px 8px;font-size:11px"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Maps</a>
+          <a href="https://m.uber.com/ul/?action=setPickup&pickup[latitude]=38.9531&pickup[longitude]=-77.4565&pickup[nickname]=Washington+Dulles+Airport+(IAD)&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+M%C3%A9ridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber" style="padding:3px 8px;font-size:11px"><svg viewBox="0 0 24 24" fill="currentColor" style="width:10px;height:10px"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg> Uber to hotel</a>
+        </span>
+      </div>
+    </div>
+    <div class="card" style="border-left:3px solid #4caf7d">
+      <div class="kpi-area" style="color:#4caf7d">Board Meeting Venue</div>
+      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px">Faegre Drinker Offices</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:4px">1500 K St. NW, Washington D.C. 20005<br>Suite #1100 / Conference Room 11A</div>
+      <div class="location-actions">
+      <a href="https://maps.google.com/?q=1500+K+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9015&dropoff[longitude]=-77.0379&dropoff[nickname]=Faegre+Drinker+Offices&dropoff[formatted_address]=1500+K+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div>
+      <hr style="border:none;border-top:1px solid var(--border);margin:12px 0">
+      <div class="stat-row" style="padding:6px 0"><span class="stat-label">Tuesday March 24</span><span class="stat-value">9:00 AM – 5:00 PM</span></div>
+      <div class="stat-row" style="padding:6px 0;border-bottom:none"><span class="stat-label">Wednesday March 25</span><span class="stat-value">9:00 AM – 5:00 PM</span></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted)">Wi-Fi: <span style="color:var(--text)">FaegreDrinker-Guest</span> &nbsp;/&nbsp; Password: <span style="color:var(--text)">ClientsFirst</span></div>
+    </div>
+  </div>
+
+  <h2>Meals &amp; Transport</h2>
+  <div class="three-col">
+    <div class="card">
+      <div class="kpi-area">Breakfast</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px">6:30 AM – 11:00 AM</div>
+      <p style="font-size:13px;margin:0">Buffet at Le Méridien Market Place each morning. Present your breakfast voucher (given at check-in) at checkout each day.</p>
+    </div>
+    <div class="card">
+      <div class="kpi-area">Lunch &amp; Snacks</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px">Provided In-House</div>
+      <p style="font-size:13px;margin:0">Lunch provided at Faegre Drinker each day. Snack and beverage service throughout daily meetings.</p>
+    </div>
+    <div class="card">
+      <div class="kpi-area">Ground Transport</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px">Uber Vouchers</div>
+      <p style="font-size:13px;margin:0">Full-cost vouchers transferred to your account on March 20. Select "Comfort" where possible. Ride-share with other board members when practical.</p>
+    </div>
+  </div>
+
+  <h2>Evening Events</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Tue Mar 24<br>7:00 – 9:30 PM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Board of Directors Dinner</div>
+        <div class="tl-desc"><strong style="color:var(--text)">Masseria</strong> &nbsp;·&nbsp; 1340 4th St NE, Washington D.C. 20002<br><span style="font-size:12px;color:var(--muted2)">Reserved exclusively for Board members and ELT. Guests by prior permission from Amanda Wildman only.</span>
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=Masseria+Restaurant,+1340+4th+Street+NE,+Washington+DC+20002" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9026&dropoff[longitude]=-76.9937&dropoff[nickname]=Masseria+Restaurant&dropoff[formatted_address]=1340+4th+Street+NE,+Washington+DC+20002" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Wed Mar 25<br>7:00 – 9:00 PM</div>
+      <div class="timeline-content">
+        <div class="tl-title">CEDIA on the Hill Dinner &amp; Briefing</div>
+        <div class="tl-desc"><strong style="color:var(--text)">Le Méridien Hotel</strong> &nbsp;·&nbsp; The Hamilton Room, 2nd Floor<br><span style="font-size:12px;color:var(--muted2)">Reserved exclusively for Board members and ELT.</span>
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=Le+Meridien+Washington+DC,+1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+Méridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Thu Mar 26<br>7:00 – 8:00 AM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Lobby Day Buffet Breakfast</div>
+        <div class="tl-desc"><strong style="color:var(--text)">Le Méridien Hotel</strong> &nbsp;·&nbsp; The Hamilton Room, 2nd Floor<br><span style="font-size:12px;color:var(--muted2)">Before Hill Day. Full lobby day agenda in a separate packet.</span>
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=Le+Meridien+Washington+DC,+1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+Méridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2>Day I Agenda — Tuesday March 24</h2>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Faegre Drinker Offices · Suite #1100 · 9:00 AM – 5:00 PM</div>
+  <table class="data-table">
+    <thead><tr><th>#</th><th>Item</th><th>Lead</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Call to Order / Approval of Minutes</td><td>Amanda</td></tr>
+      <tr><td>2</td><td>Chairperson's Remarks</td><td>Amanda</td></tr>
+      <tr><td>3</td><td>CEO Update</td><td>Daryl</td></tr>
+      <tr><td>4</td><td style="color:var(--muted2);font-style:italic">Morning Break</td><td style="color:var(--muted2)">Board</td></tr>
+      <tr><td>5</td><td>Executive Session <span style="font-size:12px;color:var(--muted)">(Initially without Daryl — Remainder with Daryl)</span></td><td>Board Only (+CEO)</td></tr>
+      <tr><td>6</td><td style="color:var(--muted2);font-style:italic">Lunch Break</td><td style="color:var(--muted2)">Board</td></tr>
+      <tr><td>7</td><td>Dues Discussion: Trade Supplier / Additional Locations</td><td>Wendy, Mitch &amp; Daryl</td></tr>
+      <tr><td>8</td><td>Keeping Former Board Members Connected</td><td>Daryl &amp; Amanda</td></tr>
+      <tr><td>9</td><td>Education — Presentation &amp; Discussion<br><span style="font-size:12px;color:var(--muted)">Professional Development Committee · CEDIA Connect · Expo · UK Trade School Partnership (Matt)</span></td><td>Paul &amp; Amanda</td></tr>
+      <tr><td>10</td><td style="color:var(--muted2);font-style:italic">Afternoon Break</td><td style="color:var(--muted2)">Board</td></tr>
+      <tr><td>11</td><td>Research</td><td>Ryan &amp; Matt</td></tr>
+      <tr><td>12</td><td style="color:var(--muted2);font-style:italic">Adjourn for the Day</td><td>Amanda</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="margin-top:12px"><p style="font-size:12px">MS Teams: Meeting ID 248 776 190 194 79 · Passcode: hV9YR2MD</p></div>
+
+  <h2>Day II Agenda — Wednesday March 25</h2>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Faegre Drinker Offices · Suite #1100 · 9:00 AM – 5:00 PM</div>
+  <table class="data-table">
+    <thead><tr><th>#</th><th>Item</th><th>Lead</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Discussion: Messaging and Telling Our Story</td><td>Daryl, Amanda &amp; Ed</td></tr>
+      <tr><td>2</td><td>Design &amp; Build Strategy Session</td><td>Andrea &amp; Daryl</td></tr>
+      <tr><td>3</td><td>UBS Presentation: Global Economic Outlook</td><td>Chris Jackson</td></tr>
+      <tr><td>4</td><td style="color:var(--muted2);font-style:italic">Lunch</td><td style="color:var(--muted2)">Board</td></tr>
+      <tr><td>5</td><td>Expense Reimbursement Process (Demonstration)</td><td>Kory</td></tr>
+      <tr><td>6</td><td>Approve Finance Committee &amp; GC Members</td><td>Amanda</td></tr>
+      <tr><td>7</td><td>Old / New Business</td><td>Board</td></tr>
+      <tr><td>8</td><td style="color:var(--muted2);font-style:italic">Adjourn for the Day</td><td>Amanda</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight-box" style="margin-top:12px"><p style="font-size:12px">MS Teams: Meeting ID 263 783 638 346 98 · Passcode: uP7Nq22c</p></div>
+</section>
+
+
+<!-- MINUTES -->
+<section id="minutes" class="section">
+  <div class="section-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div style="flex:1">
+        <div class="section-label">Board Minutes</div>
+        <div class="section-title">January 12, 2026</div>
+        <div class="section-desc">Minutes of the Annual Board of Directors Meeting. Previously approved by the Board.</div>
+      </div>
+      <img src="data:image/png;base64,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" alt="CEDIA" style="width:52px;opacity:0.35;flex-shrink:0;margin-top:4px;filter:brightness(1.2)">
+    </div>
+  </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
+
+  <div class="two-col" style="margin-bottom:8px">
+    <div class="card">
+      <div class="kpi-area">Directors Present</div>
+      <ul class="bullet-list" style="margin-top:4px">
+        <li><strong>Amanda Wildman</strong> — Chairperson</li>
+        <li><strong>Edward Gilmore</strong> — Vice Chairperson</li>
+        <li><strong>Stuart Tickle</strong> — Treasurer</li>
+        <li><strong>James Chen</strong> — Secretary</li>
+        <li><strong>Alex Capecelatro</strong> — Immediate Past Chairperson</li>
+        <li>Mike Chorney</li>
+        <li>Henry Clifford</li>
+        <li>Rich Green</li>
+        <li>Kris Hogg</li>
+        <li>Jen Mallett</li>
+        <li>MaryEllen Oswald</li>
+        <li>James Ratcliffe</li>
+        <li>Manojkumar Soni</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="kpi-area">Staff &amp; Counsel Present</div>
+      <ul class="bullet-list" style="margin-top:4px">
+        <li><strong>Daryl Friedman</strong> — Global President &amp; CEO</li>
+        <li><strong>Kory Dickerson</strong> — SVP Finance &amp; Operations</li>
+        <li><strong>Christine DeJoy</strong> — VP Communications</li>
+        <li><strong>Paul Dolenc</strong> — VP Education &amp; Training</li>
+        <li><strong>Wendy Griffiths</strong> — SVP Membership &amp; Global Development</li>
+        <li><strong>Mitch Klein</strong> — VP Business Strategy</li>
+        <li><strong>Stephanie Redman</strong> — Sr. Director HR/Operations</li>
+        <li><strong>Marilee Springer</strong> — Faegre Drinker Biddle &amp; Reath LLP</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:8px">
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <div style="font-size:13px;color:var(--muted)">Called to order: <span style="color:var(--text);font-weight:500">9:00 AM EST</span></div>
+      <div style="font-size:13px;color:var(--muted)">Adjourned: <span style="color:var(--text);font-weight:500">10:30 AM EST</span></div>
+      <div style="font-size:13px;color:var(--muted)">Quorum: <span style="color:#4caf7d;font-weight:500">Confirmed</span></div>
+      <div style="font-size:13px;color:var(--muted)">Prior minutes approved: <span style="color:var(--text);font-weight:500">December 1, 2025</span></div>
+    </div>
+  </div>
+
+  <h2>1. Chairperson's Comments</h2>
+  <div class="card">
+    <p style="font-size:14px;margin:0;line-height:1.75">Alex Capecelatro recapped the previous year, noting that CEDIA refashioned education, continued to create a healthy culture around the role of the board vs. staff, established KPIs, and held the ELT accountable for meeting them. He thanked the directors for their commitment to CEDIA's success and expressed appreciation for the opportunity to lead the board as Chairperson over the last two years.</p>
+  </div>
+
+  <h2>2. CEO's Comments</h2>
+  <div class="card">
+    <p style="font-size:14px;margin-bottom:12px">Daryl Friedman welcomed new directors and thanked Alex Capecelatro for his leadership. He outlined four strategic objectives for 2026:</p>
+    <ul class="bullet-list">
+      <li><strong>Launching a research function</strong></li>
+      <li><strong>Launching a Design/Build outreach department</strong></li>
+      <li><strong>Claiming the cybersecurity space in education</strong></li>
+      <li><strong>Launching CEDIA Connect</strong> — to take CEDIA's offerings to members across the nation</li>
+    </ul>
+  </div>
+
+  <h2>3. Annual Governance Resolutions</h2>
+  <div class="three-col">
+    <div class="card" style="border-left:3px solid #4caf7d">
+      <div class="kpi-area" style="color:#4caf7d">Elected Directors</div>
+      <ul class="bullet-list" style="margin-top:4px">
+        <li>Rich Green</li>
+        <li>Jen Mallett</li>
+        <li>James Ratcliffe</li>
+      </ul>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Elected by CEDIA members per Section 3.3(a) of Bylaws</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <div class="kpi-area">Appointed Directors</div>
+      <ul class="bullet-list" style="margin-top:4px">
+        <li>Kris Hogg</li>
+        <li>MaryEllen Oswald</li>
+      </ul>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Appointed by remaining Board per Section 3.3(b) of Bylaws</div>
+    </div>
+    <div class="card" style="border-left:3px solid #7f77dd">
+      <div class="kpi-area" style="color:#7f77dd">Officers Elected</div>
+      <ul class="bullet-list" style="margin-top:4px">
+        <li><strong>Chair:</strong> Amanda Wildman <span class="tag tag-orange" style="margin-left:4px;font-size:10px">2yr term</span></li>
+        <li><strong>Vice Chair:</strong> Edward Gilmore</li>
+        <li><strong>Secretary:</strong> James Chen</li>
+        <li><strong>Treasurer:</strong> Stuart Tickle</li>
+      </ul>
+      <div style="font-size:11px;color:var(--muted);margin-top:10px">Per Section 4.2 of Bylaws. Alex Capecelatro continues as Immediate Past Chairperson (ex-officio, non-voting).</div>
+    </div>
+  </div>
+
+  <h2>4. Executive Committee</h2>
+  <div class="card">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Per Section 3.10(a) of the Bylaws, the Executive Committee consists of the Chairperson, Vice Chairperson, Secretary, and Treasurer. The Immediate Past Chairperson serves as ex-officio, non-voting member per Section 6.2.</p>
+    <div class="people-grid">
+      <div class="person-card"><div class="person-name">Amanda Wildman</div><div class="person-role">Chairperson</div></div>
+      <div class="person-card"><div class="person-name">Edward Gilmore</div><div class="person-role">Vice Chairperson</div></div>
+      <div class="person-card"><div class="person-name">Stuart Tickle</div><div class="person-role">Treasurer</div></div>
+      <div class="person-card"><div class="person-name">James Chen</div><div class="person-role">Secretary</div></div>
+      <div class="person-card" style="opacity:0.6"><div class="person-name">Alex Capecelatro</div><div class="person-role">Imm. Past Chair (ex-officio, non-voting)</div></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-top:12px">This Executive Committee also serves as the Board of Directors of CEDIA EMEA and as the Board of Managers of CEDIA Real Estate Holdings, LLC.</div>
+  </div>
+
+  <h2>5. 2026 KPIs Approved</h2>
+  <div style="display:grid;grid-template-columns:1fr;gap:10px">
+    <div class="kpi-item"><div class="kpi-area">Finance</div><div class="kpi-text">Meet budgeted net operating income.</div></div>
+    <div class="kpi-item"><div class="kpi-area">Membership</div><div class="kpi-text">Increase in total HTI membership by 10% overall with no decrease in Premium members.</div></div>
+    <div class="kpi-item"><div class="kpi-area">Advocacy</div><div class="kpi-text">Include non-board HTI participation in CEDIA On The Hill Day key districts and increase overall participation by 50%.</div></div>
+    <div class="kpi-item"><div class="kpi-area">Design &amp; Build / Marketing</div><div class="kpi-text">Target number of downloads of the new D&amp;B professional's guide from CEDIA.ORG/DESIGNBUILD — to be confirmed.</div></div>
+  </div>
+  <div class="highlight-box" style="margin-top:12px"><p>Education and Research KPIs were deferred — the executive team was directed to further refine these and return to the board for approval.</p></div>
+
+  <hr class="divider">
+  <p style="font-size:13px;color:var(--muted);text-align:right;font-style:italic">Respectfully submitted — James Chen, Secretary &nbsp;·&nbsp; Ref: DMS_US.376339113.1</p>
+</section>
+
+
+<!-- HILL DAY -->
+<section id="hillday" class="section">
+  <div class="section-header">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div style="flex:1">
+        <div class="section-label">Advocacy · Thursday March 26, 2026</div>
+        <div class="section-title">CEDIA Day on Capitol Hill</div>
+        <div class="section-desc">Full agenda, locations, and talking points for all Hill Day participants. Attendance at the Wednesday dinner briefing is required.</div>
+      </div>
+      <img src="data:image/png;base64,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" alt="CEDIA" style="width:52px;opacity:0.35;flex-shrink:0;margin-top:4px;filter:brightness(1.2)">
+    </div>
+  </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
+
+  <div class="highlight-box" style="margin-bottom:28px">
+    <p style="color:var(--orange);font-weight:600;margin-bottom:4px">Wednesday March 25 — Required Pre-Briefing</p>
+    <p style="margin:0;font-size:13px">CEDIA on the Hill Dinner &amp; Briefing · 7:00–9:00 PM · Le Méridien Hotel, The Hamilton Room (2nd Floor) · Required for all attending Day on Capitol Hill</p>
+  </div>
+
+  <h2 style="margin-top:0">Thursday March 26 — Full Day Schedule</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">7:00 – 8:00 AM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Buffet Breakfast</div>
+        <div class="tl-desc"><strong style="color:var(--text)">Le Méridien Hotel — The Hamilton Room, 2nd Floor</strong><br>1177 15th St NW, Washington D.C. 20005
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=Le+Meridien+Washington+DC,+1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.9038&dropoff[longitude]=-77.0367&dropoff[nickname]=Le+Méridien+Hotel&dropoff[formatted_address]=1177+15th+Street+NW,+Washington+DC+20005" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">8:00 – 8:30 AM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Shuttle to U.S. Department of Labor</div>
+        <div class="tl-desc"><span style="color:var(--orange);font-weight:600">Meet in lobby of Le Méridien by 8:00 AM sharp.</span> Travel by shuttle from hotel.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">9:00 – 9:45 AM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Meeting with Department of Labor</div>
+        <div class="tl-desc">Topics may include: Workforce Development in skilled trades · Apprenticeships in CI industry · Establishing an Occupational Classification for "Technology Integrator"
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=US+Department+of+Labor,+200+Constitution+Ave+NW,+Washington+DC+20210" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.8930&dropoff[longitude]=-77.0136&dropoff[nickname]=U.S.+Department+of+Labor&dropoff[formatted_address]=200+Constitution+Ave+NW,+Washington+DC+20210" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">9:45 – 11:30 AM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Walk / Travel to Rayburn Building</div>
+        <div class="tl-desc"><strong style="color:var(--text)">45 Independence Ave, Washington D.C.</strong><br>Enter through main entrance — take staircase across from main entrance — Foyer is at the top of the stairs.<br><span style="color:var(--orange);font-weight:500">20-minute walk or Uber</span>
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=Rayburn+House+Office+Building,+45+Independence+Ave+SW,+Washington+DC" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.8872&dropoff[longitude]=-77.0093&dropoff[nickname]=Rayburn+Building&dropoff[formatted_address]=45+Independence+Ave+SW,+Washington+DC" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">11:30 AM – 1:00 PM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Lunch &amp; "AI Comes Home" Presentation — Rayburn Foyer</div>
+        <div class="tl-desc"><strong style="color:var(--text)">Opening Remarks from Congresswoman Yvette Clarke</strong> (Chair, Smart Cities Congressional Caucus) at 11:45 AM</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">1:30 – 4:30 PM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Congressional Group Meetings</div>
+        <div class="tl-desc">Groups of 5 or 6. First meetings start at 1:30 PM — last meeting begins at 4:30 PM. Various Congressional offices.</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">5:00 – 5:30 PM</div>
+      <div class="timeline-content">
+        <div class="tl-title">Group Photo on Steps of Capitol Hill</div>
+        <div class="tl-desc">With CEDIA photographer.
+        <div class="location-actions">
+      <a href="https://maps.google.com/?q=US+Capitol+Steps,+Washington+DC" target="_blank" rel="noopener" class="loc-btn loc-btn-maps">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Google Maps
+      </a>
+      <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=38.8899&dropoff[longitude]=-77.0091&dropoff[nickname]=U.S.+Capitol+Steps&dropoff[formatted_address]=Capitol+Hill,+Washington+DC" target="_blank" rel="noopener" class="loc-btn loc-btn-uber">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 3a2.5 2.5 0 1 1-2.5 2.5A2.5 2.5 0 0 1 12 5zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+        Open in Uber
+      </a>
+    </div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h2>Talking Points for Congressional Meetings</h2>
+  <div class="highlight-box" style="margin-bottom:24px"><p style="font-size:12px;color:var(--orange)">⚠ These are for CEDIA advocates only — not a leave-behind document.</p></div>
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="kpi-area">The Industry — Who We Are</div>
+    <ul class="bullet-list">
+      <li>Smart Home Professionals keep U.S. homeowners <strong>comfortable, connected and safe</strong> in their homes</li>
+      <li>Consists of companies that <strong>design, manufacture, install, and automate</strong> smart home products and solutions</li>
+      <li>Technology Integrators are experts in <strong>security, audio/video, networking, lighting</strong>, and more</li>
+      <li>Technology Integrators' work positively impacts homeowner <strong>productivity, safety and lifestyle</strong></li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;border-left:3px solid #4caf7d">
+    <div class="kpi-area" style="color:#4caf7d">Support — S. 2802 / H.R. 1641</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px">"Student Debt Alternative and CTE Awareness Act"</div>
+    <ul class="bullet-list">
+      <li><strong>Bipartisan</strong> — lead sponsor Rep. Roger Williams with three Democratic co-sponsors</li>
+      <li>Aims to inform prospective students about <strong>alternatives to traditional four-year degrees</strong></li>
+      <li>Directs Department of Education to publish comprehensive data on <strong>Career and Technical Education (CTE)</strong> programmes</li>
+      <li>Promotes CTE as a viable option — highlights training paths with <strong>less student debt</strong></li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;border-left:3px solid #4caf7d">
+    <div class="kpi-area" style="color:#4caf7d">Support — H.R. 4105</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px">"Veterans Energy Transition (VET) Act of 2025"</div>
+    <ul class="bullet-list">
+      <li><strong>Bipartisan</strong> — lead sponsor Rep. Kiggans, currently 19 co-sponsors from both parties</li>
+      <li>Directs DOL to establish a <strong>grant programme</strong> connecting transitioning service members, veterans, and spouses with careers in energy and electronics including control systems</li>
+      <li>Provides eligible employers <strong>up to $10,000 per hire</strong> (max $500,000 annually) to reimburse training, certification, recruitment, and relocation costs</li>
+      <li>Addresses skilled workforce shortages — veterans have the expertise to fill critical gaps</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-bottom:24px;border-left:3px solid #4caf7d">
+    <div class="kpi-area" style="color:#4caf7d">Support — S. 244</div>
+    <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:10px">"ROUTERS Act"</div>
+    <ul class="bullet-list">
+      <li>Directs Department of Commerce to study <strong>national security risks and cybersecurity vulnerabilities</strong> posed by consumer routers, modems, and combination devices</li>
+      <li>Mandates investigation into broadband devices from entities under the influence of <strong>covered adversary countries</strong></li>
+      <li>Part of broader effort to secure the <strong>U.S. technology supply chain</strong></li>
+      <li>H.R. 866 (House version) has already <strong>passed the House by voice vote</strong></li>
+    </ul>
+  </div>
+
+  <h2>If Asked — Positions on Other Topics</h2>
+  <div class="two-col">
+    <div class="card" style="border-left:3px solid var(--orange)">
+      <div class="kpi-area">Artificial Intelligence</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">Not promoting specific legislation — use these principles if asked</div>
+      <ul class="bullet-list">
+        <li>When properly deployed, AI has the potential to <strong>revolutionise the residential experience</strong> — creating a home that is safe, comfortable and responsive</li>
+        <li>When not properly deployed, every connected device on an inadequately installed network is a <strong>potential entry point for threats</strong> — AI used by bad actors can amplify vulnerabilities</li>
+        <li>Governments should partner with <strong>trusted nonprofit institutions such as CEDIA</strong> to create standards for installation, devices, and connectivity</li>
+      </ul>
+    </div>
+    <div class="card" style="border-left:3px solid var(--muted2)">
+      <div class="kpi-area" style="color:var(--muted)">Tariffs &amp; Trade</div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px">Not promoting specific legislation — redirect to certainty</div>
+      <ul class="bullet-list">
+        <li>CEDIA believes <strong>uncertainty surrounding tariffs and trade creates an unfavourable environment</strong> for U.S. businesses</li>
+        <li>The smart home industry is resilient and adaptable, but proper business planning requires a <strong>known and stable landscape for trade</strong></li>
+        <li><em style="color:var(--muted2)">Given the significant controversy around this issue, redirect to the topic of certainty rather than engaging on specific tariff positions.</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
 <!-- KPIs -->
 <section id="kpi" class="section">
   <div class="section-header">
@@ -490,6 +1036,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">An update on KPI progress will be presented live in the Board Meeting.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr;gap:14px">
     <div class="kpi-item">
       <div class="kpi-area">Finance</div>
@@ -532,6 +1084,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Consolidated preliminary financials as of January 31, 2026.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <div class="card-grid">
     <div class="metric-card">
       <div class="metric-label">Total Assets</div>
@@ -627,6 +1185,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Infrastructure, modernisation, and digital transformation progress.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <div class="card-grid">
     <div class="card" style="border-left:3px solid #4caf7d">
       <div style="font-size:11px;color:#4caf7d;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:10px">Operational Excellence</div>
@@ -686,6 +1250,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">CEDIA continues to monitor and proactively engage across multiple US state legislative sessions.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <h2 style="margin-top:0">United States — Active Legislative Issues</h2>
   <div class="advocacy-item ok">
     <div class="advocacy-state">Delaware</div>
@@ -739,6 +1309,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Team growth, culture milestones, and current hiring priorities.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <div class="card-grid" style="margin-bottom:32px">
     <div class="metric-card">
       <div class="metric-label">Great Place to Work</div>
@@ -803,6 +1379,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Key event performance and planning status across the global portfolio.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
   <div class="card-grid">
     <div class="card" style="border-left:3px solid #4caf7d">
       <div class="kpi-area" style="color:#4caf7d">ISE 2026</div>
@@ -864,6 +1446,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Comprehensive membership performance across all regions and categories.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <div class="card-grid" style="margin-bottom:8px">
     <div class="metric-card">
@@ -976,6 +1564,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Smart Homes Awards, Member of Excellence, Design &amp; Build, and association partnerships.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <h2 style="margin-top:0">Smart Homes Awards 2026</h2>
   <div class="three-col">
@@ -1044,6 +1638,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Learning management, certifications, standards, workforce development, and global programmes.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <h2 style="margin-top:0">CEDIA Connect 2026</h2>
   <div class="card-grid">
@@ -1132,6 +1732,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Updates specific to EMEA not covered in other sections.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <h2 style="margin-top:0">Smart Home Assurance Scheme</h2>
   <div class="card-grid">
@@ -1176,6 +1782,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">PR, digital, social media, and upcoming campaign activities.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <h2 style="margin-top:0">Spring 2026 Communications Timeline</h2>
   <div class="timeline">
@@ -1226,6 +1838,12 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
     </div>
     <div class="section-desc">Revenue tracking, buying group relationships, and Tech Summit portfolio.</div>
   </div>
+  <div class="ai-compact">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" class="ai-page-input" placeholder="Ask me anything about this board meeting..." onkeydown="if(event.key==='Enter')askPage(this)">
+    <button onclick="askPage(this.previousElementSibling)">Ask AI</button>
+  </div>
+
 
   <div class="card-grid">
     <div class="metric-card">
@@ -1500,6 +2118,98 @@ Manufacturer Advisory Council invitations: Savant, ADI, Crestron, AV Pro, Sony, 
 NOTABLE BOARD MENTIONS:
 - James Ratcliffe (Homeplay Ltd, Sunbury-on-Thames): Board member; offered UK DBO instructor support; brought WOWHouse opportunity to CEDIA; Nathan Jones (Homeplay) gave ISE Career Day testimonial; engaged with UTC Derby students in Barcelona with Amanda Wildman
 - Amanda Wildman: Board Chairperson, first female to hold this role
+
+
+HILL DAY — CEDIA DAY ON CAPITOL HILL (Thursday March 26, 2026):
+Pre-Briefing (Required): CEDIA on the Hill Dinner & Briefing, Wednesday March 25, 7:00-9:00 PM, Le Méridien Hotel, The Hamilton Room (2nd Floor). Required for all attending Hill Day.
+
+Thursday March 26 Schedule (7:00 AM - 5:30 PM):
+7:00-8:00 AM: Buffet Breakfast at Le Méridien Hotel, The Hamilton Room, 2nd Floor (1177 15th St NW)
+8:00-8:30 AM: Shuttle from Le Méridien to U.S. Department of Labor. Meet in hotel lobby by 8:00 AM SHARP.
+9:00-9:45 AM: Meeting with Department of Labor. Topics: Workforce Development in skilled trades, Apprenticeships in CI industry, Establishing Occupational Classification for "Technology Integrator"
+9:45-11:30 AM: Walk/travel to Rayburn Building (45 Independence Ave, Washington D.C.). Enter through main entrance, take staircase across from main entrance, Foyer at top of stairs. 20-minute walk or Uber.
+11:30 AM-1:00 PM: Lunch and "AI Comes Home" Presentation, Rayburn Foyer. Opening Remarks from Congresswoman Yvette Clarke (Chair, Smart Cities Congressional Caucus) at 11:45 AM.
+1:30-4:30 PM: Congressional Group Meetings (groups of 5 or 6). First meeting 1:30 PM, last meeting begins 4:30 PM.
+5:00-5:30 PM: Group Photo on Steps of Capitol Hill with CEDIA photographer.
+
+HILL DAY TALKING POINTS (for CEDIA advocates only - NOT a leave-behind document):
+
+The Industry: Smart Home Professionals keep U.S. homeowners comfortable, connected and safe. Companies design, manufacture, install and automate smart home products. Technology Integrators are experts in security, audio/video, networking, lighting. Their work positively impacts homeowner productivity, safety and lifestyle.
+
+Support S. 2802 / H.R. 1641 "Student Debt Alternative and CTE Awareness Act":
+- Bipartisan - lead sponsor Rep. Roger Williams with three Democratic co-sponsors
+- Aims to inform prospective students about alternatives to traditional four-year degrees
+- Department of Education to publish comprehensive data on Career and Technical Education (CTE) programs
+- Promotes CTE as a viable option with less student debt
+
+Support H.R. 4105 "Veterans Energy Transition (VET) Act of 2025":
+- Bipartisan - lead sponsor Rep. Kiggans, 19 co-sponsors from both parties
+- Directs DOL to establish a grant program connecting transitioning service members, veterans, and spouses with careers in energy and electronics including control systems
+- Provides eligible employers up to $10,000 per hire (max $500,000 annually) for training, certification, recruitment, relocation
+- Addresses skilled workforce shortages
+
+Support S. 244 "ROUTERS Act":
+- Directs Department of Commerce to study national security risks from consumer routers, modems, and combination devices
+- Investigates broadband devices from entities under adversary country influence
+- Part of broader U.S. technology supply chain security effort
+- H.R. 866 (House version) has already passed the House by voice vote
+
+If asked about AI (no specific legislation being promoted): When properly deployed AI can revolutionize the residential experience. When not properly deployed every connected device is a potential threat entry point. Governments should partner with trusted nonprofits like CEDIA to create standards.
+
+If asked about Tariffs (no specific legislation being promoted): Redirect to certainty. CEDIA believes uncertainty around tariffs creates an unfavorable environment. The industry is resilient but needs a known and stable trade landscape for proper business planning.
+
+LOGISTICS (March 23-26, 2026 Washington D.C.):
+Hotel: Le Méridien Washington D.C. The Madison, 1177 15th Street NW, Washington D.C. 20005. Tel: 202-862-1600.
+Check-in: 4:00 PM. Check-out: 12:00 PM.
+Distance from Reagan (DCA): 4.5 miles. Distance from Dulles (IAD): 30 miles.
+Board Meetings: Faegre Drinker Offices, 1500 K St. NW, Washington D.C. 20005, Suite #1100, Conference Room 11A.
+Tuesday March 24: 9:00 AM - 5:00 PM. Wednesday March 25: 9:00 AM - 5:00 PM.
+Wi-Fi at Faegre Drinker: FaegreDrinker-Guest / Password: ClientsFirst
+Breakfast: Le Méridien buffet at the Market Place 6:30 AM - 11:00 AM each morning. Present breakfast vouchers (given at check-in) at the checkout each day.
+Lunch: Provided in-house at Faegre Drinker each day. Snack and beverage service throughout meetings.
+Uber Vouchers: Full-cost Uber vouchers transferred to accounts on March 20, 2026. Select "Comfort" option. Ride-share where possible.
+Dinner Tuesday March 24: Board of Directors Dinner 7:00-9:30 PM at Masseria, 1340 4th St NE, Washington D.C. 20002. Reserved for Board and ELT only — guests by prior permission from Amanda Wildman.
+Dinner Wednesday March 25: CEDIA on the Hill Dinner and Briefing 7:00-9:00 PM at Le Méridien Hotel, The Hamilton Room (2nd Floor). Reserved for Board and ELT only.
+Thursday March 26 Lobby Day: Buffet Breakfast 7:00-8:00 AM at Le Méridien Hotel, The Hamilton Room (2nd Floor). Full lobby day agenda in separate packet.
+
+DAY I AGENDA - Tuesday March 24, 2026 (Faegre Drinker, Suite 1100, 9am-5pm):
+1. Call to Order / Approval of Minutes - Amanda
+2. Chairperson's Remarks - Amanda
+3. CEO Update - Daryl
+4. Morning Break
+5. Executive Session (Initially without Daryl, Remainder with Daryl) - Board Only (+CEO)
+6. Lunch Break
+7. Dues Discussion: Trade Supplier / Additional Locations - Wendy, Mitch & Daryl
+8. Keeping Former Board Members Connected - Daryl & Amanda
+9. Education (Presentation and Discussion): New Professional Development Committee Structure, CEDIA Connect, Expo, UK Trade School Partnership (Matt) - Paul & Amanda
+10. Afternoon Break
+11. Research - Ryan & Matt
+12. Adjourn for the Day - Amanda
+MS Teams Day I: Meeting ID 248 776 190 194 79, Passcode: hV9YR2MD
+
+DAY II AGENDA - Wednesday March 25, 2026 (Faegre Drinker, Suite 1100, 9am-5pm):
+1. Discussion: Messaging and Telling Our Story - Daryl, Amanda & Ed
+2. Design & Build Strategy Session - Andrea & Daryl
+3. UBS Presentation: Global Economic Outlook - Chris Jackson
+4. Lunch
+5. Expense Reimbursement Process (Demonstration) - Kory
+6. Approve Finance Committee & GC Members - Amanda
+7. Old/New Business - Board
+8. Adjourn for the Day - Amanda
+MS Teams Day II: Meeting ID 263 783 638 346 98, Passcode: uP7Nq22c
+
+JANUARY 12, 2026 BOARD MEETING MINUTES:
+Meeting called to order at 9:00 AM EST by Alex Capecelatro. Quorum confirmed. Adjourned 10:30 AM EST.
+Prior minutes approved: December 1, 2025.
+Directors present: Amanda Wildman (Chairperson), Edward Gilmore (Vice Chair), Stuart Tickle (Treasurer), James Chen (Secretary), Alex Capecelatro (Immediate Past Chair), Mike Chorney, Henry Clifford, Rich Green, Kris Hogg, Jen Mallett, MaryEllen Oswald, James Ratcliffe, Manojkumar Soni.
+Staff present: Daryl Friedman (CEO), Kory Dickerson (SVP Finance), Christine DeJoy (VP Comms), Paul Dolenc (VP Education), Wendy Griffiths (SVP Membership), Mitch Klein (VP Business Strategy), Stephanie Redman (Sr. Director HR), Marilee Springer (Faegre Drinker counsel).
+Chairperson Comments: Capecelatro recapped 2025: refashioned education, healthy board vs staff culture, established KPIs, held ELT accountable.
+CEO Comments: Friedman outlined 4 strategic 2026 objectives: launching a research function, launching D&B outreach department, claiming cybersecurity space in education, launching CEDIA Connect nationally.
+Governance resolutions: Elected directors (by CEDIA members per Section 3.3a): Rich Green, Jen Mallett, James Ratcliffe. Appointed directors (by Board per Section 3.3b): Kris Hogg, MaryEllen Oswald.
+Officers elected: Amanda Wildman (Chairperson, 2yr term), Edward Gilmore (Vice Chair, 1yr), James Chen (Secretary, 1yr), Stuart Tickle (Treasurer, 1yr). Alex Capecelatro continues as Immediate Past Chairperson (ex-officio, non-voting per Section 6.2). Gavel passed to Wildman.
+Executive Committee: Amanda Wildman, Edward Gilmore, Stuart Tickle, James Chen, with Alex Capecelatro ex-officio non-voting. This Executive Committee also serves as Board of Directors of CEDIA EMEA (sole member since Jan 1 2017) and Board of Managers of CEDIA Real Estate Holdings LLC.
+KPIs approved at this meeting: Finance (meet budgeted NOI), Membership (10% HTI growth, no decrease in Premium), Advocacy (50% increase in Hill Day participation including non-board HTI), D&B Marketing (download target TBD). Education and Research KPIs were deferred for ELT refinement and subsequent board approval.
+Secretary: James Chen. Reference: DMS_US.376339113.1.
 `;
 
 function show(id) {
@@ -1566,6 +2276,69 @@ async function sendAITop() {
       loadDiv.className = 'msg msg-ai';
       loadDiv.textContent = 'Error connecting. Please try again.';
       document.getElementById('ai-send').disabled = false;
+    });
+  }, 300);
+}
+function askPage(inputEl) {
+  const q = inputEl.value.trim();
+  if(!q) return;
+  inputEl.value = '';
+  openAI();
+  setTimeout(() => {
+    const msgs = document.getElementById('ai-messages');
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg msg-user';
+    userDiv.textContent = q;
+    msgs.appendChild(userDiv);
+    const loadDiv = document.createElement('div');
+    loadDiv.className = 'msg msg-ai loading';
+    loadDiv.textContent = 'Thinking…';
+    msgs.appendChild(loadDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+    fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: DOC_CONTEXT, messages: [{ role: 'user', content: q }] })
+    }).then(r => r.json()).then(data => {
+      const text = data.content && data.content[0] ? data.content[0].text : 'Sorry, could not get a response.';
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = text;
+      msgs.scrollTop = msgs.scrollHeight;
+    }).catch(() => {
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = 'Error connecting. Please try again.';
+    });
+  }, 300);
+}
+function askLogistics() {
+  const input = document.getElementById('ai-logistics-input');
+  const q = input.value.trim();
+  if(!q) return;
+  input.value = '';
+  openAI();
+  setTimeout(() => {
+    const msgs = document.getElementById('ai-messages');
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg msg-user';
+    userDiv.textContent = q;
+    msgs.appendChild(userDiv);
+    const loadDiv = document.createElement('div');
+    loadDiv.className = 'msg msg-ai loading';
+    loadDiv.textContent = 'Thinking…';
+    msgs.appendChild(loadDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+    fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: DOC_CONTEXT, messages: [{ role: 'user', content: q }] })
+    }).then(r => r.json()).then(data => {
+      const text = data.content && data.content[0] ? data.content[0].text : 'Sorry, could not get a response.';
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = text;
+      msgs.scrollTop = msgs.scrollHeight;
+    }).catch(() => {
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = 'Error connecting. Please try again.';
     });
   }, 300);
 }
