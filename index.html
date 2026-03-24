@@ -1507,7 +1507,7 @@ async function sendAITop() {
     loadDiv.textContent = 'Thinking…';
     msgs.appendChild(loadDiv);
     msgs.scrollTop = msgs.scrollHeight;
-    fetch('https://api.anthropic.com/v1/messages', {
+    fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1561,7 +1561,7 @@ async function sendAI() {
   msgs.scrollTop = msgs.scrollHeight;
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
