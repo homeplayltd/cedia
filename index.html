@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CEDIA Board Pre-Read | March 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,6 +153,41 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 .sq:hover{border-color:var(--orange);color:var(--orange)}
 
 
+
+/* AI TOP BOX */
+.ai-top-box{background:linear-gradient(135deg,rgba(212,97,43,0.12) 0%,rgba(212,97,43,0.05) 100%);border:1px solid rgba(212,97,43,0.35);border-radius:14px;padding:22px 24px;margin-bottom:36px}
+.ai-top-label{font-size:11px;color:var(--orange);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-top-label::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.ai-top-title{font-size:17px;font-weight:600;color:var(--text);margin-bottom:4px}
+.ai-top-desc{font-size:13px;color:var(--muted);margin-bottom:16px}
+.ai-top-input-row{display:flex;gap:10px}
+.ai-top-input{flex:1;background:var(--surface2);border:1px solid var(--border2);border-radius:8px;padding:11px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none}
+.ai-top-input:focus{border-color:var(--orange)}
+.ai-top-input::placeholder{color:var(--muted2)}
+.ai-top-send{background:var(--orange);color:#fff;border:none;border-radius:8px;padding:11px 20px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background 0.15s}
+.ai-top-send:hover{background:var(--orange-light)}
+.ai-top-qs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ai-top-q{background:rgba(255,255,255,0.04);border:1px solid var(--border2);border-radius:20px;padding:5px 13px;font-size:12px;color:var(--muted);cursor:pointer;transition:all 0.15s}
+.ai-top-q:hover{border-color:var(--orange);color:var(--orange)}
+
+/* SUMMARY SECTION */
+.summary-banner{background:var(--surface);border:1px solid var(--border2);border-radius:14px;overflow:hidden;margin:32px 0}
+.summary-banner-header{background:rgba(212,97,43,0.1);border-bottom:1px solid rgba(212,97,43,0.2);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.summary-banner-title{font-size:13px;font-weight:600;color:var(--orange);text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.summary-banner-warning{font-size:12px;color:var(--muted);font-style:italic;text-align:right;line-height:1.4;max-width:300px}
+.summary-body{padding:24px}
+.concern-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border)}
+.concern-item:last-child{border-bottom:none}
+.concern-num{width:26px;height:26px;border-radius:50%;background:var(--orange-dim);border:1px solid rgba(212,97,43,0.4);color:var(--orange);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.concern-content{}
+.concern-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.concern-detail{font-size:13px;color:var(--muted);line-height:1.6}
+.concern-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.ct-red{background:rgba(224,82,82,0.12);color:#e05252;border:1px solid rgba(224,82,82,0.2)}
+.ct-amber{background:rgba(212,97,43,0.12);color:var(--orange);border:1px solid rgba(212,97,43,0.25)}
+.ct-blue{background:rgba(55,138,221,0.12);color:#378add;border:1px solid rgba(55,138,221,0.2)}
+
 /* PASSWORD GATE */
 #pw-gate{position:fixed;inset:0;background:#0d0d0d;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px}
 #pw-box{width:100%;max-width:380px;text-align:center}
@@ -277,6 +311,25 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
 
 <!-- OVERVIEW -->
 <section id="overview" class="section active">
+
+  <!-- AI ASK BOX -->
+  <div class="ai-top-box">
+    <div class="ai-top-label">AI Assistant</div>
+    <div class="ai-top-title">Ask anything about this board report</div>
+    <div class="ai-top-desc">Get instant answers on financials, membership data, advocacy updates, or any detail in the pre-read.</div>
+    <div class="ai-top-input-row">
+      <input type="text" class="ai-top-input" id="ai-top-input" placeholder="e.g. What is the current membership renewal rate?" onkeydown="if(event.key==='Enter')sendAITop()">
+      <button class="ai-top-send" onclick="sendAITop()">Ask</button>
+    </div>
+    <div class="ai-top-qs">
+      <div class="ai-top-q" onclick="askTop('What are the biggest financial risks right now?')">Financial risks?</div>
+      <div class="ai-top-q" onclick="askTop('How is membership trending vs last year?')">Membership trend?</div>
+      <div class="ai-top-q" onclick="askTop('Which legislative issues pose the biggest threat to members?')">Legislative threats?</div>
+      <div class="ai-top-q" onclick="askTop('What are the top 3 things the board needs to decide at this meeting?')">Key decisions?</div>
+      <div class="ai-top-q" onclick="askTop('Is CEDIA on track to hit its 2026 KPIs?')">KPI progress?</div>
+    </div>
+  </div>
+
   <div class="section-header">
     <img src="data:image/png;base64,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" alt="CEDIA" style="width:120px;display:block;margin-bottom:24px;filter:brightness(1.05)">
     <div class="section-label">Board Pre-Read Materials</div>
@@ -287,6 +340,75 @@ p{color:var(--muted);margin-bottom:12px;line-height:1.75}
   <div class="card" style="margin-bottom:24px">
     <p style="color:var(--text);margin-bottom:0;font-size:14px;line-height:1.8">This pre-read has been prepared by CEDIA's Executive Leadership Team covering operational and tactical matters. The agenda will be dynamic and interactive — presentations will tee up discussions and brainstorming rather than functioning as committee reports. Most of this information will not be covered in the Boardroom unless the Chair decides otherwise.</p>
   </div>
+  <!-- BOARD SUMMARY -->
+  <div class="summary-banner">
+    <div class="summary-banner-header">
+      <div class="summary-banner-title">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        AI Board Summary — Key Concerns &amp; Watch Points
+      </div>
+      <div class="summary-banner-warning">This is an AI-generated summary for quick orientation.<br>The full pre-read should be read in its entirety before the meeting.</div>
+    </div>
+    <div class="summary-body">
+      <div class="concern-item">
+        <div class="concern-num">1</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-red">Urgent</div>
+          <div class="concern-title">Membership decline demands a structural response</div>
+          <div class="concern-detail">Total membership has fallen from 4,205 (2024 YE) to 3,735 (2025 YE) and sits at 2,598 YTD — a trajectory that needs scrutiny even accounting for renewal timing. The company-only renewal rate of 71% sits 10 points below the 81% industry average. Of members who cited reasons for not renewing, 21% said "limited value" — a signal the Board must interrogate directly. Individual membership is down 9% and described as "volatile." The KPI target of 10% growth requires a significant reversal of current trends.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">2</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-red">Watch Closely</div>
+          <div class="concern-title">Legislative threats to Technology Integrators are multiplying</div>
+          <div class="concern-detail">CEDIA is actively fighting on five US state fronts simultaneously — Delaware, Georgia, Iowa, Kansas, and two Nebraska bills — all attempting to fold Technology Integrators into electrical contractor licensing frameworks that would impose requirements incompatible with the profession. Nebraska LB 1003 is particularly concerning as it would block TIs from installing renewable energy and battery storage systems entirely. The federal lobby day briefing has been withheld from this pre-read, suggesting there are additional federal-level concerns. The Board should expect a substantial advocacy update in the room.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">3</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-amber">Monitor</div>
+          <div class="concern-title">CEDIA Expo 2026 carries operational and commercial risk</div>
+          <div class="concern-detail">The team is recovering from a "difficult 2025 partnership year" in which Emerald used CEDIA Expo to test two new platforms — a significant concern for exhibitor and attendee confidence. The 2026 show runs up to a holiday weekend, with "many concerns" acknowledged in the document. Expo is one of CEDIA's most significant revenue events and any attendance or sponsorship shortfall would have a material impact on the full-year financial position. The Board should probe Emerald's commitments and contingency planning.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">4</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-amber">Monitor</div>
+          <div class="concern-title">Revenue is behind budget — but context matters</div>
+          <div class="concern-detail">Total revenue for January is $215K against a $258K budget, with education and membership dues both short. However, this is one month of data, January is structurally weak for associations, and the operating loss (-$780K) is actually $172K better than the budgeted loss (-$953K). The investment portfolio is the standout positive: $355K returned against a $68K budget. The Board should understand the full-year revenue trajectory and whether Q2/Q3 event revenue is expected to close the gap comfortably.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">5</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-amber">Monitor</div>
+          <div class="concern-title">ISE membership acquisition collapsed — systemic or one-off?</div>
+          <div class="concern-detail">CEDIA gained just 1 new member through ISE registration in 2026, compared to 21 in 2025. ISE attributes this to a new registration system. While plausible, the Board should seek assurance that this is genuinely a platform issue being resolved for 2027 and not a symptom of declining ISE relevance or brand recognition among prospects. 700 booth scans and 16,000 data points were captured — the conversion of that pipeline into members needs to be tracked closely through Q2.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">6</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-blue">Strategic Opportunity</div>
+          <div class="concern-title">Design &amp; Build momentum is real — needs sustained investment</div>
+          <div class="concern-detail">The WOWHouse partnership (20,000+ HNW visitors, Chelsea Design Centre, June–July), the NKBA Smart Home Tech award, influencer programme at ISE reaching 1.2M people, and the new D&amp;B Director appointment all represent genuine traction with architects and designers. This is arguably CEDIA's strongest strategic growth vector. The Board should ensure this programme receives protected budget and resource even if broader cost pressures emerge mid-year.</div>
+        </div>
+      </div>
+      <div class="concern-item">
+        <div class="concern-num">7</div>
+        <div class="concern-content">
+          <div class="concern-tag ct-blue">Strategic Opportunity</div>
+          <div class="concern-title">Research department establishment is a defining moment</div>
+          <div class="concern-detail">The hiring of Ryan Bardach as Director of Research and the KPI to deliver credible US and UK market size/scope studies by Expo and EI Live represents CEDIA's first serious attempt to own industry data. If delivered well, this becomes a durable source of authority, media coverage, and member value. The Board should understand the methodology, timeline, and publication strategy — and consider how the findings will be activated commercially and with the press.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="two-col" style="margin-top:32px">
     <div>
       <h2 style="margin-top:0">Mission</h2>
@@ -1363,6 +1485,50 @@ function closeSidebar() {
   document.getElementById('overlay').classList.remove('show');
 }
 
+function askTop(q) {
+  document.getElementById('ai-top-input').value = q;
+  sendAITop();
+}
+async function sendAITop() {
+  const input = document.getElementById('ai-top-input');
+  const q = input.value.trim();
+  if(!q) return;
+  input.value = '';
+  openAI();
+  setTimeout(() => {
+    document.getElementById('ai-input').value = '';
+    const msgs = document.getElementById('ai-messages');
+    const userDiv = document.createElement('div');
+    userDiv.className = 'msg msg-user';
+    userDiv.textContent = q;
+    msgs.appendChild(userDiv);
+    const loadDiv = document.createElement('div');
+    loadDiv.className = 'msg msg-ai loading';
+    loadDiv.textContent = 'Thinking…';
+    msgs.appendChild(loadDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: DOC_CONTEXT,
+        messages: [{ role: 'user', content: q }]
+      })
+    }).then(r => r.json()).then(data => {
+      const text = data.content && data.content[0] ? data.content[0].text : 'Sorry, could not get a response.';
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = text;
+      msgs.scrollTop = msgs.scrollHeight;
+      document.getElementById('ai-send').disabled = false;
+    }).catch(() => {
+      loadDiv.className = 'msg msg-ai';
+      loadDiv.textContent = 'Error connecting. Please try again.';
+      document.getElementById('ai-send').disabled = false;
+    });
+  }, 300);
+}
 function openAI() { document.getElementById('ai-panel').classList.add('open'); document.getElementById('ai-input').focus(); }
 function closeAI() { document.getElementById('ai-panel').classList.remove('open'); }
 document.getElementById('ai-panel').addEventListener('click', function(e) { if(e.target === this) closeAI(); });
